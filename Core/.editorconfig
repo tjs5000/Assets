@@ -1,0 +1,100 @@
+# PlexiPark .editorconfig
+# Root-level configuration
+root = true
+
+# Use 4 spaces for all C# files
+[*.cs]
+indent_style = space
+indent_size = 4
+charset = utf-8-bom
+end_of_line = crlf
+insert_final_newline = true
+
+##########################################################
+#                  NAMING STYLES                         #
+##########################################################
+
+# PascalCase style
+dotnet_naming_style.pascal_case_style.capitalization = PascalCase
+
+# camelCase style
+dotnet_naming_style.camel_case_style.capitalization = camelCase
+
+# _camelCase (for private fields)
+dotnet_naming_style.underscore_camel_case_style.capitalization = camelCase
+dotnet_naming_style.underscore_camel_case_style.required_prefix = _
+
+# I-prefixed PascalCase (for interfaces)
+dotnet_naming_style.i_prefixed_interface_style.capitalization = PascalCase
+dotnet_naming_style.i_prefixed_interface_style.required_prefix = I
+
+# ALL_CAPS_WITH_UNDERSCORES (for constants)
+dotnet_naming_style.all_caps_style.capitalization = AllUpper
+dotnet_naming_style.all_caps_style.word_separator = _
+
+##########################################################
+#                 SYMBOL GROUPS                          #
+##########################################################
+
+# All classes
+dotnet_naming_symbols.class_symbols.applicable_kinds = class
+dotnet_naming_symbols.class_symbols.applicable_accessibilities = *
+dotnet_naming_symbols.class_symbols.required_modifiers = *
+
+# All interfaces
+dotnet_naming_symbols.interface_symbols.applicable_kinds = interface
+dotnet_naming_symbols.interface_symbols.applicable_accessibilities = *
+dotnet_naming_symbols.interface_symbols.required_modifiers = *
+
+# All enums
+dotnet_naming_symbols.enum_symbols.applicable_kinds = enum
+dotnet_naming_symbols.enum_symbols.applicable_accessibilities = *
+dotnet_naming_symbols.enum_symbols.required_modifiers = *
+
+# Public fields
+dotnet_naming_symbols.public_field_symbols.applicable_kinds = field
+dotnet_naming_symbols.public_field_symbols.applicable_accessibilities = public
+dotnet_naming_symbols.public_field_symbols.required_modifiers = *
+
+# Private fields
+dotnet_naming_symbols.private_field_symbols.applicable_kinds = field
+dotnet_naming_symbols.private_field_symbols.applicable_accessibilities = private
+dotnet_naming_symbols.private_field_symbols.required_modifiers = *
+
+# Constants
+dotnet_naming_symbols.constant_symbols.applicable_kinds = field
+dotnet_naming_symbols.constant_symbols.required_modifiers = const
+
+##########################################################
+#                NAMING RULES                            #
+##########################################################
+
+# Classes → PascalCase
+dotnet_naming_rule.classes_should_be_pascal_case.symbols = class_symbols
+dotnet_naming_rule.classes_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.classes_should_be_pascal_case.severity = warning
+
+# Interfaces → I + PascalCase
+dotnet_naming_rule.interfaces_should_be_i_prefixed.symbols = interface_symbols
+dotnet_naming_rule.interfaces_should_be_i_prefixed.style = i_prefixed_interface_style
+dotnet_naming_rule.interfaces_should_be_i_prefixed.severity = warning
+
+# Enums → PascalCase
+dotnet_naming_rule.enums_should_be_pascal_case.symbols = enum_symbols
+dotnet_naming_rule.enums_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.enums_should_be_pascal_case.severity = warning
+
+# Public Fields → PascalCase
+dotnet_naming_rule.public_fields_pascal_case.symbols = public_field_symbols
+dotnet_naming_rule.public_fields_pascal_case.style = pascal_case_style
+dotnet_naming_rule.public_fields_pascal_case.severity = warning
+
+# Private Fields → _camelCase
+dotnet_naming_rule.private_fields_underscore_camel_case.symbols = private_field_symbols
+dotnet_naming_rule.private_fields_underscore_camel_case.style = underscore_camel_case_style
+dotnet_naming_rule.private_fields_underscore_camel_case.severity = warning
+
+# Constants → ALL_CAPS_WITH_UNDERSCORES
+dotnet_naming_rule.constants_all_caps.symbols = constant_symbols
+dotnet_naming_rule.constants_all_caps.style = all_caps_style
+dotnet_naming_rule.constants_all_caps.severity = warning
