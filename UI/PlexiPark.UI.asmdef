@@ -1,0 +1,21 @@
+{
+    "name": "PlexiPark.UI",
+    "rootNamespace": "",
+    "references": [
+        "PlexiPark.Data",
+        "PlexiPark.Data.UI",
+        "PlexiPark.Managers",
+        "PlexiPark.Systems",
+        "Unity.TextMeshPro",
+        "PlexiPark.Data.SaveLoad"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

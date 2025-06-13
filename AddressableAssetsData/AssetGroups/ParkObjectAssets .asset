@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: 'ParkObjectAssets '
+  m_EditorClassIdentifier: 
+  m_GroupName: 'ParkObjectAssets '
+  m_GUID: a3ed1184296fbe742adf85414c8b02cf
+  m_SerializeEntries:
+  - m_GUID: 02acfb073f8dff64faca0283f55f8a8a
+    m_Address: Assets/Data/ParkObjects/Path/BikeTrail.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Path
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 036ba1636e3c9b8409cb05396dda32ed
+    m_Address: Assets/Data/ParkObjects/Waterway/WaterFeature.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Waterway
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 103e083d1a55a1f4cba6993834e4598b
+    m_Address: Assets/Data/ParkObjects/Facility/SportsField.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 336cebda0f71d204e9da855a16915b99
+    m_Address: Assets/Data/ParkObjects/Waterway/Waterway.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Waterway
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 368790757e6fddd47bb920433392fdb2
+    m_Address: Assets/Data/ParkObjects/Facility/Cafe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 430b3ca4392ee914db9014a400a254b3
+    m_Address: Assets/Data/ParkObjects/Facility/PerformanceStage.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a31b7f00c8b80c4c9387a1a881d0058
+    m_Address: Assets/Data/ParkObjects/Attraction/PublicArt.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Attraction
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6badf1eb11b38314aab01cad60b6d4dd
+    m_Address: Assets/Data/ParkObjects/Path/MountainTrail.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Path
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8705ce864ef63e541bbbe9f9fd6c62a1
+    m_Address: Assets/Data/ParkObjects/Facility/Campsite.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a89f5d7b335374045aaae33b60318f67
+    m_Address: Assets/Data/ParkObjects/Facility/Playground.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aed203c3db77d0e4aa74229fdf0447ef
+    m_Address: Assets/Data/ParkObjects/Facility/ResearchOutpost.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b29a535011c6ee14499bf22afe33cb63
+    m_Address: Assets/Data/ParkObjects/Path/ServiceRoad.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Path
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5be566f2ecff2d4e92ad466fc2c6d22
+    m_Address: Assets/Data/ParkObjects/Path/HikingTrail.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Path
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd64235a042f4e143b5c97089601d771
+    m_Address: Assets/Data/ParkObjects/Facility/LookoutTower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb3133cdf61025145a27e0ecf7990fcf
+    m_Address: Assets/Data/ParkObjects/Natural/NaturalMarvel.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd569a51362e153478f7c355cad931e8
+    m_Address: Assets/Data/ParkObjects/Facility/VisitorCenter.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df3540b0823137a47886fbbd179c4a42
+    m_Address: Assets/Data/ParkObjects/Facility/Restroom.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0109071c921812438f0e3d6df77e2c6
+    m_Address: Assets/Data/ParkObjects/Path/WalkingPath.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Path
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea152e2bee3f751429ad15a259e2a1be
+    m_Address: Assets/Data/ParkObjects/Natural/Rocks.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebc3e706a51d3ce47b5b48a5cda46e60
+    m_Address: Assets/Data/ParkObjects/Attraction/NaturalMarvel.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Attraction
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed07ab0b94e319b42a566b6970eaa785
+    m_Address: Assets/Data/ParkObjects/Natural/Trees.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f37894d46ecc117459818fcb1ebd52eb
+    m_Address: Assets/Data/ParkObjects/Amenity/Bench.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Amenity
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe0c10c680f28ee46b5c839a59092b77
+    m_Address: Assets/Data/ParkObjects/Amenity/LampPost.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Amenity
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a56edd9bf2f1ce042be8f427452f65a8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 73c23d2b065a879498fde321224366a6, type: 2}
+    - {fileID: 11400000, guid: f71313259f19fd646a04290ffc520d82, type: 2}

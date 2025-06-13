@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: bench1
+  m_EditorClassIdentifier: 
+  ObjectID: bench1
+  DisplayName: Bench
+  Prefab: {fileID: 5844837558535426659, guid: 3912c75fbcbac2848a617409a64ba568, type: 3}
+  IsFacility: 0
+  IsPath: 0
+  IsLandscape: 0
+  AllowedParkTypes: 000000000100000002000000
+  AllowedSlopes: 0000000001000000
+  Footprint:
+  - {x: 0, y: 0}
+  - {x: 1, y: 0}
+  preset: 2
+  IsPermanent: 0
+  RequiresValidTerrain: 1
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 100
+  MaintenanceCostPerMonth: 10
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0
+  VisitorAttraction: []
+  NeedFulfillment: []

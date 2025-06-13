@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: billboard
+  m_EditorClassIdentifier: 
+  ObjectID: Billboard
+  DisplayName: Billboard
+  Prefab: {fileID: 4024575618009512891, guid: 3678702f79ca8e3408aa7bbeaaf33e6a, type: 3}
+  IsFacility: 0
+  IsPath: 0
+  IsLandscape: 1
+  AllowedParkTypes: 
+  AllowedSlopes: 00000000010000000200000003000000
+  Footprint:
+  - {x: 0, y: 0}
+  - {x: 1, y: 0}
+  - {x: 0, y: 1}
+  - {x: 1, y: 1}
+  preset: 3
+  IsPermanent: 0
+  RequiresValidTerrain: 0
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 100
+  MaintenanceCostPerMonth: 10
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0
+  VisitorAttraction: []
+  NeedFulfillment: []

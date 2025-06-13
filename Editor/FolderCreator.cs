@@ -20,7 +20,7 @@ public static class FolderCreator
         CreateFolder("Assets", "Data");
         CreateSubFolders("Assets/Data", new[]
         {
-            "ParkObjects/Facilities",
+            "ParkObjects/Facility",
             "ParkObjects/Landscape",
             "ParkObjects/Paths",
             "Visitors",

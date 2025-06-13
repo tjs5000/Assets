@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: basketball_court
+  m_EditorClassIdentifier: 
+  ObjectID: BasketballCourt
+  DisplayName: Basketball Court
+  Prefab: {fileID: 3219767699504126583, guid: b2903fbc404ee8a40a5908625ca2970d, type: 3}
+  IsFacility: 1
+  IsPath: 0
+  IsLandscape: 1
+  AllowedParkTypes: 000000000100000002000000
+  AllowedSlopes: 00000000
+  Footprint:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}
+  - {x: 0, y: 2}
+  - {x: 0, y: 4}
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
+  - {x: 1, y: 2}
+  - {x: 1, y: 4}
+  - {x: 2, y: 0}
+  - {x: 2, y: 1}
+  - {x: 2, y: 2}
+  - {x: 2, y: 4}
+  - {x: 3, y: 1}
+  - {x: 3, y: 2}
+  - {x: 3, y: 3}
+  - {x: 3, y: 4}
+  preset: 0
+  IsPermanent: 0
+  RequiresValidTerrain: 0
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 100
+  MaintenanceCostPerMonth: 10
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0
+  VisitorAttraction: []
+  NeedFulfillment: []

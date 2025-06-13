@@ -1,0 +1,18 @@
+{
+    "name": "PlexiPark.Managers",
+    "rootNamespace": "",
+    "references": [
+        "PlexiPark.Data",
+        "PlexiPark.Data.SaveLoad",
+        "PlexiPark.Data.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

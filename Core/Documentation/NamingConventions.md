@@ -20,7 +20,7 @@ This guide defines the structure, file naming conventions, and organizational ru
 > All **ScriptableObjects**, enums, and runtime game data.
 
 - `ParkObjects/`:
-  - `Facilities/`: Tiered buildings like Restroom, VisitorCenter
+  - `Facility/`: Tiered buildings like Restroom, VisitorCenter
   - `Landscape/`: Trees, statues, natural elements
   - `Paths/`: Trails, bike paths, roads
 
