@@ -64,7 +64,6 @@ namespace PlexiPark.Systems
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
         void Update()
         {
 #if UNITY_EDITOR
