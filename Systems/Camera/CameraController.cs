@@ -14,11 +14,14 @@ using System.Collections;
 using PlexiPark.Data;
 using PlexiPark.Managers;
 using PlexiPark.Systems.SaveLoad;
-
+using UnityEngine.EventSystems;
 namespace PlexiPark.Systems.CameraControl
 {
     public class CameraController : MonoBehaviour
     {
+
+        public bool allowUserControl = true;
+
         // ------------------------------------------------------------------
         // 1. Initialization & Zoom Profiles
         // ------------------------------------------------------------------
@@ -36,7 +39,7 @@ namespace PlexiPark.Systems.CameraControl
         [Header("Pan Settings")]
         public float panSpeed = 5f;
 
-        
+
         public float panClampBuffer = 5f;
 
         [Header("Momentum")]
@@ -74,11 +77,11 @@ namespace PlexiPark.Systems.CameraControl
         private float currentY;
 
 
-public void Pan(Vector3 delta)
-{
-    // if your camera is rotated or uses a parent, you may want to transform this
-    transform.position += delta;
-}
+        public void Pan(Vector3 delta)
+        {
+            // if your camera is rotated or uses a parent, you may want to transform this
+            transform.position += delta;
+        }
 
         private void Start()
         {
@@ -115,11 +118,20 @@ public void Pan(Vector3 delta)
 
         private void Update()
         {
+            // ALWAYS clamp & orbit
+            ClampLookPointToGrid();
+            ApplyOrbit();
+
+            // ONLY handle input if we’re allowed
+            if (!allowUserControl || IsPointerOverUI())
+    return;
+
 #if UNITY_EDITOR || UNITY_STANDALONE
             HandleMouseZoomFallback();
             HandleMousePanFallback();
             HandleMouseRotateFallback();
 #endif
+
             if (Input.touchCount == 1 && (currentGesture == GestureState.None || currentGesture == GestureState.Panning))
             {
                 HandleSingleFingerPan();
@@ -143,9 +155,6 @@ public void Pan(Vector3 delta)
                 move.y = 0f;
                 lookPoint += move;
             }
-
-            ClampLookPointToGrid();
-            ApplyOrbit();
         }
 
         #endregion
@@ -265,6 +274,19 @@ public void Pan(Vector3 delta)
             transform.position = targetPosition;
             transform.LookAt(lookPoint);
 
+        }
+
+        private bool IsPointerOverUI()
+        {
+            if (EventSystem.current == null) return false;
+#if UNITY_EDITOR || UNITY_STANDALONE
+            // check mouse
+            return EventSystem.current.IsPointerOverGameObject();
+#else
+        // check touch 0
+        if (Input.touchCount == 0) return false;
+        return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+#endif
         }
 
 

@@ -12,6 +12,8 @@ namespace PlexiPark.Systems
     public class ParkBuilder : MonoBehaviour
     {
 
+        private GridManager gridManager;
+        private LayerMask groundLayerMask;
         [Header("Edge-Pan Settings")]
         [Tooltip("How close (in % of screen) to the border before camera pans")]
         [Range(0.0f, 0.5f)]
@@ -40,8 +42,21 @@ namespace PlexiPark.Systems
         private GhostContextUI contextUI;
         private GameObject contextIconInstance;
 
+        // NEW:
+        private bool isDraggingGhost = false;
+        private Camera mainCamera;
+        private LayerMask ghostLayerMask;
+
+
+        [SerializeField] private Transform UIRoot;
+
         void Awake()
         {
+            gridManager = GridManager.Instance;
+            groundLayerMask = LayerMask.GetMask("Terrain");
+
+            mainCamera = Camera.main;
+            ghostLayerMask = LayerMask.GetMask("Ghost");
             if (Instance != null)
             {
                 Destroy(gameObject);
@@ -62,7 +77,7 @@ namespace PlexiPark.Systems
 
             // Always update the ghost under the finger
             UpdateGhostPosition();
-
+            HandleGhostDragging();
             var touch = Input.GetTouch(0);
 
             // While the finger is down, check for edge-panning
@@ -99,17 +114,28 @@ namespace PlexiPark.Systems
 
             // Instantiate ghost and collect renderers
             ghostInstance = Instantiate(data.Prefab);
+
             ghostRenderers.Clear();
+            SetLayerRecursively(ghostInstance, LayerMask.NameToLayer("Ghost"));
             foreach (var r in ghostInstance.GetComponentsInChildren<Renderer>())
                 ghostRenderers.Add(r);
 
+
             // Show invalid material until user moves
+
             SetGhostMaterial(false);
 
             isPlacing = true;
+            if (CameraController.Instance != null)
+                CameraController.Instance.allowUserControl = false;
 
             // Spawn context UI
             contextIconInstance = Instantiate(contextIconCanvasPrefab);
+            Debug.Log("ContextIcon instance: " + contextIconInstance.name + " at " +
+             contextIconInstance.transform.position);
+
+           // contextIconInstance.transform.SetParent(ghostInstance.transform, false);
+            contextIconInstance.transform.SetParent(UIRoot, worldPositionStays: false);
             contextUI = contextIconInstance.GetComponent<GhostContextUI>();
             contextUI.Initialize(ghostInstance.transform);
 
@@ -123,6 +149,48 @@ namespace PlexiPark.Systems
                 CameraController.Instance.CenterOn(ghostInstance.transform.position);
 
             Debug.Log("👻 Ghost created and ready to move.");
+        }
+
+
+        private void HandleGhostDragging()
+        {
+            if (Input.touchCount == 0) return;
+            Touch t = Input.GetTouch(0);
+            Vector2 pos = t.position;
+
+            if (t.phase == TouchPhase.Began && !isDraggingGhost)
+            {
+                Ray ray = mainCamera.ScreenPointToRay(pos);
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ghostLayerMask))
+                    if (hit.collider.gameObject == ghostInstance)
+                        isDraggingGhost = true;
+            }
+
+            if (t.phase == TouchPhase.Moved && isDraggingGhost)
+            {
+                Vector3 worldPoint = ScreenPointToGround(pos);
+                Vector2Int grid = gridManager.GetGridCoordinate(worldPoint);
+                MoveGhostTo(grid);
+            }
+
+            if (t.phase == TouchPhase.Ended && isDraggingGhost)
+                isDraggingGhost = false;
+        }
+
+        private Vector3 ScreenPointToGround(Vector2 screenPos)
+        {
+            Ray ray = mainCamera.ScreenPointToRay(screenPos);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
+                return hit.point;
+            return Vector3.zero;
+        }
+
+        private void MoveGhostTo(Vector2Int origin)
+        {
+            // your existing placement-validation & movement call
+            currentGridOrigin = origin;
+            ghostInstance.transform.position = gridManager.GetWorldPosition(origin);
+            ValidatePlacement(origin);
         }
 
         public void RotateGhostClockwise()
@@ -206,6 +274,9 @@ namespace PlexiPark.Systems
             currentData = null;
             isPlacing = false;
             contextUI = null;
+            // after Destroy(ghostInstance); … isPlacing = false;
+            if (CameraController.Instance != null)
+                CameraController.Instance.allowUserControl = true;
         }
 
         public void CancelPlacement()
@@ -226,6 +297,9 @@ namespace PlexiPark.Systems
             currentData = null;
             isPlacing = false;
             contextUI = null;
+            // after Destroy(ghostInstance); … isPlacing = false;
+            if (CameraController.Instance != null)
+                CameraController.Instance.allowUserControl = true;
         }
 
         private bool ValidatePlacement(Vector2Int origin)
@@ -259,10 +333,10 @@ namespace PlexiPark.Systems
         }
 
         #endregion
-    
 
 
-    private void HandleEdgePan(Vector2 screenPos)
+
+        private void HandleEdgePan(Vector2 screenPos)
         {
             // compute the inset rectangle
             float xMin = Screen.width * edgeThreshold;
@@ -282,6 +356,13 @@ namespace PlexiPark.Systems
                 // move in world XZ plane
                 CameraController.Instance.Pan(panDir.normalized * panSpeed * Time.deltaTime);
             }
+        }
+
+        private void SetLayerRecursively(GameObject obj, int layer)
+        {
+            obj.layer = layer;
+            foreach (Transform child in obj.transform)
+                SetLayerRecursively(child.gameObject, layer);
         }
 
     }
