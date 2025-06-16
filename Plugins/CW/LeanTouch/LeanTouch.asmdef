@@ -1,11 +1,8 @@
 {
-    "name": "PlexiPark.Systems",
-    "rootNamespace": "",
+    "name": "LeanTouch",
     "references": [
-        "PlexiPark.Managers",
-        "PlexiPark.Data.SaveLoad",
-        "PlexiPark.Data",
-        "Unity.TextMeshPro"
+        "LeanCommon",
+        "CW.Common"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

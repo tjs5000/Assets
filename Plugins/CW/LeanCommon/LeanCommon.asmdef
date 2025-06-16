@@ -1,11 +1,7 @@
 {
-    "name": "PlexiPark.Systems",
-    "rootNamespace": "",
+    "name": "LeanCommon",
     "references": [
-        "PlexiPark.Managers",
-        "PlexiPark.Data.SaveLoad",
-        "PlexiPark.Data",
-        "Unity.TextMeshPro"
+        "CW.Common"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

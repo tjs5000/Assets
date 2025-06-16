@@ -12,31 +12,15 @@ namespace PlexiPark.Data
     [Serializable]
     public struct CameraState
     {
-        public float X;
-        public float Z;
-        public Vector2 position;
+        public Vector3 position;
+        public Quaternion rotation;
+        public float   zoomDistance; 
 
-        // Future fields (optional)
-        // public float Yaw;
-        // public float ZoomLevel;
-
-        public CameraState(Vector3 pos)
+        public CameraState(Vector3 pos, Quaternion rot, float zoomDist)
         {
-            X = pos.x;
-            Z = pos.z;
-            // Yaw = 0f;
-            // ZoomLevel = 0f;
-            position = new Vector2(X, Z);
-        }
-
-        public Vector3 GetXZPosition()
-        {
-            return new Vector3(X, 0f, Z);
-        }
-
-        public override string ToString()
-        {
-            return $"CameraState: (X: {X:F2}, Z: {Z:F2})";
+            position = pos;
+            rotation = rot;
+            zoomDistance = zoomDist;
         }
     }
 }

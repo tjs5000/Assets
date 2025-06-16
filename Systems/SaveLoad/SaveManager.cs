@@ -5,7 +5,6 @@
 // -------------------------------------------
 
 using UnityEngine;
-using PlexiPark.Systems;
 using PlexiPark.Data;
 
 namespace PlexiPark.Systems.SaveLoad
@@ -23,19 +22,19 @@ namespace PlexiPark.Systems.SaveLoad
             Debug.Log($"📸 CameraState saved: {json}");
         }
 
-        // Load camera state from PlayerPrefs (returns default if not found)
-        public static CameraState LoadCameraState()
+        // Load camera state from PlayerPrefs; returns null if not found
+        public static CameraState? LoadCameraState()
         {
-            if (PlayerPrefs.HasKey(CameraStateKey))
+            if (!PlayerPrefs.HasKey(CameraStateKey))
             {
-                string json = PlayerPrefs.GetString(CameraStateKey);
-                CameraState state = JsonUtility.FromJson<CameraState>(json);
-                Debug.Log($"📸 CameraState loaded: {json}");
-                return state;
+                Debug.Log("📸 No saved CameraState found.");
+                return null;
             }
 
-            Debug.Log("📸 No saved CameraState found. Using default.");
-            return new CameraState(Vector3.zero);
+            string json = PlayerPrefs.GetString(CameraStateKey);
+            var state = JsonUtility.FromJson<CameraState>(json);
+            Debug.Log($"📸 CameraState loaded: {json}");
+            return state;
         }
 
         // Optional: Clear saved camera state

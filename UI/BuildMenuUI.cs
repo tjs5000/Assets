@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using PlexiPark.Data.UI;
-using PlexiPark.Systems;
+using PlexiPark.Systems.Placement;
 
 namespace PlexiPark.UI
 {
@@ -16,9 +16,13 @@ namespace PlexiPark.UI
         public Transform contentRoot;
         public GameObject buttonPrefab;
 
+        [Header("Placement System")]
+        [Tooltip("Drag in the PlacementUIController from your scene")]
+        [SerializeField] private PlacementUIController placementUIController;
+
         private IEnumerator Start()
         {
-            // wait until the catalog has populated those lists
+            // wait until the catalog has populated
             yield return new WaitUntil(() => catalog != null && catalog.IsLoaded);
 
             var all = catalog.AllPlaceables.ToList();
@@ -46,10 +50,10 @@ namespace PlexiPark.UI
                 var localObj = obj; // capture for listener
                 btn.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    if (ParkBuilder.Instance == null)
-                        Debug.LogError("❌ ParkBuilder.Instance is null!");
-                    else
-                        ParkBuilder.Instance.BeginPlacement(localObj);
+                    if (placementUIController == null)
+     Debug.LogError("❌ placementUIController reference is missing on BuildMenuUI!");
+ else
+     placementUIController.BeginPlacement(localObj);
                 });
             }
         }

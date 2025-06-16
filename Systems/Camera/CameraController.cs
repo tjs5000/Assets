@@ -1,35 +1,22 @@
-// Systems/Camera/CameraController.cs
-// ------------------------------------------------------------------
-// Table of Contents
-// 1. Initialization & Zoom Profiles
-// 2. Input Handling (Touch & Mouse Fallback)
-// 3. Camera Orbit, Zoom, Pan, Rotate, Tilt
-// 4. Raycast-Based Clamping & LookPoint
-// 5. Camera State Save/Load Utilities
-// 6. Debug + Developer Gizmos
-// ------------------------------------------------------------------
-
 using UnityEngine;
 using System.Collections;
 using PlexiPark.Data;
 using PlexiPark.Managers;
 using PlexiPark.Systems.SaveLoad;
 using UnityEngine.EventSystems;
+
 namespace PlexiPark.Systems.CameraControl
 {
+    [RequireComponent(typeof(Camera))]
     public class CameraController : MonoBehaviour
     {
-
-        public bool allowUserControl = true;
-
-        // ------------------------------------------------------------------
-        // 1. Initialization & Zoom Profiles
-        // ------------------------------------------------------------------
-        #region Initialization & Zoom Profiles
         public static CameraController Instance { get; private set; }
+        public Camera MainCamera => mainCamera;
+        public bool allowUserControl = true;
 
         [Header("Zoom Profiles")]
         public ZoomProfile[] zoomProfiles;
+        private ZoomProfile zoomProfile;
 
         [Header("Zoom Settings")]
         public float minZoomDistance = 5f;
@@ -38,8 +25,6 @@ namespace PlexiPark.Systems.CameraControl
 
         [Header("Pan Settings")]
         public float panSpeed = 5f;
-
-
         public float panClampBuffer = 5f;
 
         [Header("Momentum")]
@@ -55,15 +40,24 @@ namespace PlexiPark.Systems.CameraControl
         public float maxPitch = 75f;
         [Range(0f, 1f)] public float tiltSpeed = 0.1f;
 
+        [Header("Smoothing")]
+        [Tooltip("How quickly the camera smooths to its target position. Lower is slower/smoother.")]
+        [Range(0.01f, 0.5f)] public float smoothSpeed = 0.125f;
+
         [Header("Terrain Collision")]
         public float minDistanceFromTerrain = 3.0f;
         public LayerMask terrainLayerMask;
 
-        private Camera cam;
+        // --- private state ---
+        private Camera mainCamera;
+        private Vector3 desiredPosition;
+        private Vector3 smoothedPosition;
+
         private Vector3 lookPoint;
         private float targetZoomDistance;
         private float currentZoomVelocity;
         private float rotationAngle;
+        private float currentY;
 
         private enum GestureState { None, Panning, ZoomingOrRotating }
         private GestureState currentGesture = GestureState.None;
@@ -71,31 +65,16 @@ namespace PlexiPark.Systems.CameraControl
         private Vector2 previousSingleFingerPos;
         private Vector2 smoothedSingleFingerDelta;
         private float smoothingFactor = 0.15f;
-        private Vector3 velocity;
         private float lastAvgY;
         private bool tiltInitialized;
-        private float currentY;
+
+/// <summary>
+/// Exposes the current target zoom distance for debugging.
+/// </summary>
+public float ZoomDistance => targetZoomDistance;
 
 
-        public void Pan(Vector3 delta)
-        {
-            // if your camera is rotated or uses a parent, you may want to transform this
-            transform.position += delta;
-        }
-
-        private void Start()
-        {
-            cam = Camera.main;
-
-            if (!TryLoadCameraState(out lookPoint))
-            {
-                lookPoint = GetGridCenter();
-            }
-
-            SetZoomLimitsByParkType();
-            ResetZoomAndRotation();
-            currentY = transform.position.y;
-        }
+        #region Unity Lifecycle
 
         void Awake()
         {
@@ -104,27 +83,53 @@ namespace PlexiPark.Systems.CameraControl
                 Destroy(gameObject);
                 return;
             }
-
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            mainCamera = GetComponent<Camera>();
         }
 
-        #endregion
-
-        // ------------------------------------------------------------------
-        // 2. Input Handling (Touch & Mouse Fallback)
-        // ------------------------------------------------------------------
-        #region Input Handling
-
-        private void Update()
+        IEnumerator Start()
         {
-            // ALWAYS clamp & orbit
+            // Determine zoom profile and limits
+            SetZoomLimitsByParkType();
+
+            // Initialize lookPoint from saved or grid center
+            if (!TryLoadCameraState(out lookPoint))
+                lookPoint = GetGridCenter();
+
+            // Initial rotation & distance
+            ResetZoomAndRotation();
+            currentY = transform.position.y;
+
+            // Align smoothing targets
+            desiredPosition = transform.position;
+            Vector3 initialDir = (transform.position - lookPoint).normalized;
+            targetZoomDistance = Vector3.Distance(transform.position, lookPoint);
+
+            // Wait a frame then load camera state if present
+            yield return null;
+
+            var saved = CameraSaveManager.LoadCameraState();
+            if (saved.HasValue)
+            {
+                targetZoomDistance = saved.Value.zoomDistance;  // new field
+                ApplyOrbit();                                   // recompute desiredPosition
+                Debug.Log("📍 Restored saved camera distance.");
+
+                Debug.Log("📍 Restored saved camera state.");
+            }
+        }
+
+        void Update()
+        {
             ClampLookPointToGrid();
             ApplyOrbit();
 
-            // ONLY handle input if we’re allowed
             if (!allowUserControl || IsPointerOverUI())
-    return;
+                return;
+
+            if (Input.touchCount > 0)
+                momentum.StopMomentum();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
             HandleMouseZoomFallback();
@@ -132,22 +137,25 @@ namespace PlexiPark.Systems.CameraControl
             HandleMouseRotateFallback();
 #endif
 
-            if (Input.touchCount == 1 && (currentGesture == GestureState.None || currentGesture == GestureState.Panning))
-            {
-                HandleSingleFingerPan();
-                currentGesture = GestureState.Panning;
-            }
-            else if (Input.touchCount == 2)
+            if (Input.touchCount >= 2)
             {
                 HandlePinchZoomAndRotate();
                 currentGesture = GestureState.ZoomingOrRotating;
+            }
+            else if (Input.touchCount == 1 &&
+                     (currentGesture == GestureState.None ||
+                      currentGesture == GestureState.Panning))
+            {
+                HandleSingleFingerPan();
+                currentGesture = GestureState.Panning;
             }
             else
             {
                 currentGesture = GestureState.None;
             }
 
-            if (Input.touchCount != 2) tiltInitialized = false;
+            if (Input.touchCount != 2)
+                tiltInitialized = false;
 
             if (Input.touchCount == 0 && momentum.IsMomentumActive())
             {
@@ -155,47 +163,79 @@ namespace PlexiPark.Systems.CameraControl
                 move.y = 0f;
                 lookPoint += move;
             }
+
         }
 
+        void LateUpdate()
+        {
+            smoothedPosition = Vector3.Lerp(
+                transform.position,
+                desiredPosition,
+                smoothSpeed
+            );
+            transform.position = smoothedPosition;
+            transform.LookAt(lookPoint);
+        }
+
+        void OnApplicationPause(bool paused)
+        {
+            if (paused && allowUserControl)
+            {
+                var state = new CameraState
+                {
+                    position = transform.position,
+                    rotation = transform.rotation,
+                    zoomDistance = targetZoomDistance
+                };
+                CameraSaveManager.SaveCameraState(state);
+            }
+        }
+
+
+        void OnApplicationQuit()
+        {
+            var state = new CameraState
+            {
+                position = transform.position,
+                rotation = transform.rotation,
+                zoomDistance = targetZoomDistance
+            };
+            CameraSaveManager.SaveCameraState(state);
+        }
         #endregion
 
-        // ------------------------------------------------------------------
-        // 3. Camera Orbit, Zoom, Pan, Rotate, Tilt
-        // ------------------------------------------------------------------
-        #region Camera Controls
+        #region Input Handlers
 
         private void HandleSingleFingerPan()
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
+            Touch t = Input.GetTouch(0);
+            if (t.phase == TouchPhase.Began)
             {
-                previousSingleFingerPos = touch.position;
+                previousSingleFingerPos = t.position;
                 smoothedSingleFingerDelta = Vector2.zero;
             }
-
-            if (touch.phase == TouchPhase.Moved)
+            else if (t.phase == TouchPhase.Moved)
             {
-                Vector2 rawDelta = touch.position - previousSingleFingerPos;
-                smoothedSingleFingerDelta = Vector2.Lerp(smoothedSingleFingerDelta, rawDelta, smoothingFactor);
+                Vector2 rawDelta = t.position - previousSingleFingerPos;
+                smoothedSingleFingerDelta = Vector2.Lerp(
+                    smoothedSingleFingerDelta,
+                    rawDelta,
+                    smoothingFactor
+                );
 
-                Vector3 right = cam.transform.right;
+                Vector3 right = mainCamera.transform.right;
                 Vector3 forward = Vector3.Cross(right, Vector3.up);
+                right.y = forward.y = 0f;
+                right.Normalize(); forward.Normalize();
 
-                // Flatten both vectors to remove vertical component
-                right.y = 0f;
-                forward.y = 0f;
+                Vector3 worldDelta = (-smoothedSingleFingerDelta.x * right -
+                                      smoothedSingleFingerDelta.y * forward)
+                                      * panSpeed * Time.deltaTime;
+                worldDelta.y = 0f;
 
-                right.Normalize();
-                forward.Normalize();
-                Vector3 move = (-smoothedSingleFingerDelta.x * right + -smoothedSingleFingerDelta.y * forward) * panSpeed * Time.deltaTime;
-
-                move.y = 0f; // ⛔ Clamp vertical motion
-                lookPoint += move;
-
-                previousSingleFingerPos = touch.position;
-
+                lookPoint += worldDelta;
                 momentum.UpdateMomentum(rawDelta);
+                previousSingleFingerPos = t.position;
             }
         }
 
@@ -205,33 +245,47 @@ namespace PlexiPark.Systems.CameraControl
             Vector2 prev0 = t0.position - t0.deltaPosition;
             Vector2 prev1 = t1.position - t1.deltaPosition;
 
-            float zoomDelta = Vector2.Distance(t0.position, t1.position) - Vector2.Distance(prev0, prev1);
-            targetZoomDistance -= zoomDelta * zoomSpeed;
-            targetZoomDistance = Mathf.Clamp(targetZoomDistance, minZoomDistance, maxZoomDistance);
+            float zoomDelta = Vector2.Distance(t0.position, t1.position)
+                             - Vector2.Distance(prev0, prev1);
+            targetZoomDistance = Mathf.Clamp(
+                targetZoomDistance - zoomDelta * zoomSpeed,
+                minZoomDistance, maxZoomDistance
+            );
 
-            float angleDelta = Vector2.SignedAngle(prev1 - prev0, t1.position - t0.position);
+            float angleDelta = Vector2.SignedAngle(prev1 - prev0,
+                                                  t1.position - t0.position);
             rotationAngle += angleDelta * rotationSpeed * Time.deltaTime;
 
-            HandleTiltDrag(t0, t1);
-            momentum.StopMomentum();
-        }
-
-        private void HandleTiltDrag(Touch t0, Touch t1)
-        {
-            float avgY = (t0.position.y + t1.position.y) / 2f;
+            float avgY = (t0.position.y + t1.position.y) * 0.5f;
             if (!tiltInitialized)
             {
                 lastAvgY = avgY;
                 tiltInitialized = true;
-                return;
+            }
+            else
+            {
+                float deltaY = avgY - lastAvgY;
+                pitchAngle = Mathf.Clamp(
+                    pitchAngle - deltaY * tiltSpeed,
+                    minPitch, maxPitch
+                );
+                lastAvgY = avgY;
             }
 
-            float deltaY = avgY - lastAvgY;
-            lastAvgY = avgY;
-
-            pitchAngle -= deltaY * tiltSpeed;
-            pitchAngle = Mathf.Clamp(pitchAngle, minPitch, maxPitch);
+            momentum.StopMomentum();
         }
+
+        public void Pan(Vector3 panVector)
+        {
+            if (panVector == Vector3.zero) return;
+            lookPoint += panVector;
+            ClampLookPointToGrid();
+            ApplyOrbit();
+        }
+
+        #endregion
+
+        #region Camera Controls
 
         private void ApplyOrbit()
         {
@@ -239,7 +293,7 @@ namespace PlexiPark.Systems.CameraControl
                 Vector3.Distance(transform.position, lookPoint),
                 targetZoomDistance,
                 ref currentZoomVelocity,
-                0.15f
+                bounceSmoothTime
             );
 
             float yawRad = Mathf.Deg2Rad * rotationAngle;
@@ -253,93 +307,83 @@ namespace PlexiPark.Systems.CameraControl
 
             Vector3 targetPosition = lookPoint - dir * smoothedDistance;
 
-            // Smooth the Y as before
-            currentY = Mathf.Lerp(currentY, targetPosition.y, 0.15f);
-            targetPosition.y = currentY;
-
-            // Terrain collision avoidance
-            if (Physics.Raycast(targetPosition, Vector3.down, out RaycastHit hit, 100f, terrainLayerMask))
+            if (Physics.Raycast(
+                targetPosition, Vector3.down,
+                out RaycastHit hit, 100f, terrainLayerMask))
             {
-                float distanceToTerrain = targetPosition.y - hit.point.y;
-                if (distanceToTerrain < minDistanceFromTerrain)
+                float distToGround = targetPosition.y - hit.point.y;
+                if (distToGround < minDistanceFromTerrain)
                 {
-                    float desiredMinY = hit.point.y + minDistanceFromTerrain;
-                    float liftedY = Mathf.Lerp(currentY, desiredMinY, 0.1f); // tweak 0.1f as needed
-                    currentY = Mathf.Max(currentY, liftedY); // only lift, never lower
+                    float liftY = hit.point.y + minDistanceFromTerrain;
+                    currentY = Mathf.Max(
+                        currentY,
+                        Mathf.Lerp(currentY, liftY, 0.1f)
+                    );
                     targetPosition.y = currentY;
                 }
-
             }
 
-            transform.position = targetPosition;
-            transform.LookAt(lookPoint);
-
+            desiredPosition = targetPosition;
         }
+
+        #endregion
+
+        #region Clamping & Helpers
 
         private bool IsPointerOverUI()
         {
             if (EventSystem.current == null) return false;
 #if UNITY_EDITOR || UNITY_STANDALONE
-            // check mouse
             return EventSystem.current.IsPointerOverGameObject();
 #else
-        // check touch 0
-        if (Input.touchCount == 0) return false;
-        return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+            return Input.touchCount > 0 &&
+                   EventSystem.current.IsPointerOverGameObject(
+                       Input.GetTouch(0).fingerId);
 #endif
         }
-
-
-        #endregion
-
-        // ------------------------------------------------------------------
-        // 4. Raycast-Based Clamping & LookPoint
-        // ------------------------------------------------------------------
-        #region Raycast Clamping
 
         private void ClampLookPointToGrid()
         {
             if (GridManager.Instance == null) return;
-
             float cell = GridManager.Instance.CellSize;
-            float minX = GridManager.Instance.origin.x;
-            float maxX = GridManager.Instance.origin.x + GridManager.Instance.GridWidth * cell;
-            float minZ = GridManager.Instance.origin.z;
-            float maxZ = GridManager.Instance.origin.z + GridManager.Instance.GridDepth * cell;
-
-            lookPoint.x = Mathf.Clamp(lookPoint.x, minX, maxX);
-            lookPoint.z = Mathf.Clamp(lookPoint.z, minZ, maxZ);
+            Vector2 origin = GridManager.Instance.origin;
+            lookPoint.x = Mathf.Clamp(
+                lookPoint.x,
+                origin.x,
+                origin.x + GridManager.Instance.GridWidth * cell
+            );
+            lookPoint.z = Mathf.Clamp(
+                lookPoint.z,
+                origin.y,
+                origin.y + GridManager.Instance.GridDepth * cell
+            );
         }
 
         private Vector3 GetGridCenter()
         {
             if (GridManager.Instance == null) return Vector3.zero;
-
-            Vector2Int center = new(
-                GridManager.Instance.GridWidth / 2,
-                GridManager.Instance.GridDepth / 2
+            var size = new Vector2Int(
+                GridManager.Instance.GridWidth,
+                GridManager.Instance.GridDepth
             );
-            return GridManager.Instance.GetWorldPosition(center);
+            return GridManager.Instance.GetWorldPosition(size / 2);
         }
 
         #endregion
 
-        // ------------------------------------------------------------------
-        // 5. Camera State Save/Load Utilities
-        // ------------------------------------------------------------------
-        #region Camera State
-
-        private void OnApplicationQuit() => SaveManager.SaveCameraState(new CameraState(lookPoint));
-        private void OnApplicationPause(bool pause)
-        {
-            if (pause) SaveManager.SaveCameraState(new CameraState(lookPoint));
-        }
+        #region Save/Load Helpers
 
         private bool TryLoadCameraState(out Vector3 loaded)
         {
-            CameraState state = SaveManager.LoadCameraState();
-            loaded = new Vector3(state.position.x, 0, state.position.y);
-            return loaded != Vector3.zero;
+            var state = CameraSaveManager.LoadCameraState();
+            if (!state.HasValue)
+            {
+                loaded = Vector3.zero;
+                return false;
+            }
+
+            loaded = state.Value.position;
+            return true;
         }
 
         public void ResetZoomAndRotation()
@@ -352,31 +396,32 @@ namespace PlexiPark.Systems.CameraControl
 
         private void SetZoomLimitsByParkType()
         {
-            if (GridManager.Instance == null || zoomProfiles == null) return;
+            if (GridManager.Instance == null || zoomProfiles == null)
+                return;
 
             ParkType type = GridManager.Instance.currentParkType;
-            foreach (var profile in zoomProfiles)
+            foreach (var p in zoomProfiles)
             {
-                if (profile.parkType == type)
+                if (p.parkType == type)
                 {
-                    minZoomDistance = profile.minZoom;
-                    maxZoomDistance = profile.maxZoom;
+                    zoomProfile = p;
+                    minZoomDistance = p.minZoom;
+                    maxZoomDistance = p.maxZoom;
                     return;
                 }
             }
 
-            Debug.LogWarning($"No ZoomProfile found for {type}. Using fallback zoom limits.");
+            Debug.LogWarning($"No ZoomProfile for {type}; using defaults.");
+            zoomProfile = null;
             minZoomDistance = 5f;
             maxZoomDistance = 400f;
         }
-
 
         public void SnapToCenter()
         {
             lookPoint = GetGridCenter();
             ApplyOrbit();
         }
-
 
         public void CenterOn(Vector3 worldPoint, float smoothTime = 0.25f)
         {
@@ -389,7 +434,6 @@ namespace PlexiPark.Systems.CameraControl
             Vector3 start = transform.position;
             Vector3 target = new Vector3(worldPoint.x, start.y, worldPoint.z);
             float t = 0f;
-
             while (t < 1f)
             {
                 t += Time.deltaTime / time;
@@ -398,13 +442,7 @@ namespace PlexiPark.Systems.CameraControl
             }
         }
 
-        #endregion
-
-        // ------------------------------------------------------------------
-        // 6. Debug + Developer Gizmos
-        // ------------------------------------------------------------------
-        #region Gizmos + Editor Fallback
-
+        #region Debug & Editor
 #if UNITY_EDITOR || UNITY_STANDALONE
 
         private void OnDrawGizmos()
@@ -418,38 +456,32 @@ namespace PlexiPark.Systems.CameraControl
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             float delta = scroll * 20f;
-
             if (Input.GetKey(KeyCode.Z)) delta += 1f;
             if (Input.GetKey(KeyCode.X)) delta -= 1f;
 
             if (Mathf.Abs(delta) > 0.01f)
             {
-                targetZoomDistance -= delta;
-                targetZoomDistance = Mathf.Clamp(targetZoomDistance, minZoomDistance, maxZoomDistance);
+                targetZoomDistance = Mathf.Clamp(
+                    targetZoomDistance - delta,
+                    minZoomDistance, maxZoomDistance
+                );
             }
         }
 
         private void HandleMousePanFallback()
         {
             if (!Input.GetMouseButton(1)) return;
-
             float dx = Input.GetAxis("Mouse X");
             float dy = Input.GetAxis("Mouse Y");
 
-            Vector3 right = cam.transform.right;
+            Vector3 right = mainCamera.transform.right;
             Vector3 forward = Vector3.Cross(right, Vector3.up);
-
-            // Flatten both vectors to remove vertical component
-            right.y = 0f;
-            forward.y = 0f;
-
-            right.Normalize();
-            forward.Normalize();
+            right.y = forward.y = 0f;
+            right.Normalize(); forward.Normalize();
 
             Vector3 move = (-dx * right + -dy * forward) * panSpeed;
-            move.y = 0f; // Clamp
+            move.y = 0f;
             lookPoint += move;
-
         }
 
         private void HandleMouseRotateFallback()
@@ -459,13 +491,11 @@ namespace PlexiPark.Systems.CameraControl
                 float delta = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
                 rotationAngle += delta;
             }
-
             if (Input.GetKey(KeyCode.Q)) rotationAngle -= rotationSpeed * Time.deltaTime;
             if (Input.GetKey(KeyCode.E)) rotationAngle += rotationSpeed * Time.deltaTime;
         }
-
 #endif
-
         #endregion
     }
 }
+#endregion
