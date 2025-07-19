@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: PowerSubstation
+  m_EditorClassIdentifier: 
+  ObjectID: PowerSubstation
+  DisplayName: Power Substation
+  finalPrefab: {fileID: 1517428534235891307, guid: 7aedb1e2b531c814dbe61b8721f0ab61, type: 3}
+  previewPrefab: {fileID: 1517428534235891307, guid: 7aedb1e2b531c814dbe61b8721f0ab61, type: 3}
+  Category: 0
+  AllowedSlopes: 00000000
+  Footprint:
+  - {x: 0, y: 0}
+  preset: 0
+  IsPermanent: 0
+  RequiresValidTerrain: 0
+  ParkTypeOverrides: []
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 450
+  MaintenanceCostPerMonth: 22
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0.45
+  VisitorAttraction:
+  - type: 0
+    value: -1
+  - type: 1
+    value: -0.633
+  - type: 2
+    value: -0.59
+  - type: 3
+    value: -1
+  - type: 5
+    value: -1
+  - type: 6
+    value: -1
+  NeedFulfillment: []

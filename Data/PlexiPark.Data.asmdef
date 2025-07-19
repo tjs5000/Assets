@@ -1,7 +1,12 @@
 {
     "name": "PlexiPark.Data",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "LeanTouch",
+        "LeanCommon",
+        "PlexiPark.Core",
+        "PlexiPark.Core.Interfaces"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

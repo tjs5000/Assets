@@ -1,28 +1,59 @@
+// Assets/Systems/Placement/GhostContextUI.cs
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-   public class GhostContextUI : MonoBehaviour
+namespace PlexiPark.UI
+{
+    public class GhostContextUI : MonoBehaviour
     {
-        public Button commitButton;
-        public Button cancelButton;
-        public Button rotateButton;
+        [Header("Buttons")]
+        [SerializeField] private Button commitButton;
+        [SerializeField] private Button cancelButton;
+        [SerializeField] private Button rotateButton;
 
-        private Transform target; // the ghost to follow
+        public event Action OnCommitPressed;
+        public event Action OnCancelPressed;
+        public event Action OnRotatePressed;
 
-        public void Initialize(Transform followTarget)
+        void Awake()
         {
-            target = followTarget;
+            if (commitButton != null)
+                commitButton.onClick.AddListener(() => OnCommitPressed?.Invoke());
+            else
+                Debug.LogError("❌ Commit Button is not assigned in GhostContextUI!");
+
+            if (cancelButton != null)
+                cancelButton.onClick.AddListener(() => OnCancelPressed?.Invoke());
+            else
+                Debug.LogError("❌ Cancel Button is not assigned in GhostContextUI!");
+
+            if (rotateButton != null)
+                rotateButton.onClick.AddListener(() => OnRotatePressed?.Invoke());
+            else
+                Debug.LogError("❌ Rotate Button is not assigned in GhostContextUI!");
         }
 
-        void Update()
+        // Optional: Called when shown by PlacementUIController
+        public void Initialize()
         {
-            if (target == null)
-            {
-                Destroy(gameObject);
-                return;
-            }
+            Cleanup(); // Prevent double registration
 
-            transform.position = target.position + Vector3.up * 2f; // hover above ghost
-            transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward); // face camera
+            if (commitButton != null)
+                commitButton.onClick.AddListener(() => OnCommitPressed?.Invoke());
+
+            if (cancelButton != null)
+                cancelButton.onClick.AddListener(() => OnCancelPressed?.Invoke());
+
+            if (rotateButton != null)
+                rotateButton.onClick.AddListener(() => OnRotatePressed?.Invoke());
+        }
+
+        public void Cleanup()
+        {
+            OnCommitPressed = null;
+            OnCancelPressed = null;
+            OnRotatePressed = null;
         }
     }
+}

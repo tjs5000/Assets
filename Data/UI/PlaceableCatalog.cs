@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using PlexiPark.Data; // for ParkObjectData, ParkObjectCategory
+
 
 namespace PlexiPark.Data.UI
 {
@@ -21,22 +20,18 @@ namespace PlexiPark.Data.UI
         private readonly Dictionary<string, ParkObjectData> _catalog = new();
 
         // Public lists for UI categories
-        public IReadOnlyList<ParkObjectData> Paths { get; private set; }
         public IReadOnlyList<ParkObjectData> Facility { get; private set; }
         public IReadOnlyList<ParkObjectData> Natural { get; private set; }
         public IReadOnlyList<ParkObjectData> Attractions { get; private set; }
         public IReadOnlyList<ParkObjectData> Amenities { get; private set; }
-        public IReadOnlyList<ParkObjectData> Waterways { get; private set; }
 
         public bool IsLoaded { get; private set; }
 
         public IEnumerable<ParkObjectData> AllPlaceables =>
-            Paths
-            .Concat(Facility)
+            Facility
             .Concat(Natural)
             .Concat(Attractions)
-            .Concat(Amenities)
-            .Concat(Waterways);
+            .Concat(Amenities);
 
         [Header("Addressables Labels")]
         [Tooltip("One or more Addressables labels to load all ParkObjectData under.")]
@@ -47,6 +42,7 @@ namespace PlexiPark.Data.UI
             if (Instance == null)
             {
                 Instance = this;
+                transform.SetParent(null);
                 DontDestroyOnLoad(gameObject);
                 LoadAllPlaceables();
             }
@@ -61,12 +57,10 @@ namespace PlexiPark.Data.UI
             // instead of addressableLabels, hard-code each category label
             var keys = new List<object>
                 {
-                    "Path",
                     "Facility",
                     "Natural",
                     "Attraction",
-                    "Amenity",
-                    "Waterway"
+                    "Amenity"
                 };
 
             Addressables
@@ -93,15 +87,14 @@ namespace PlexiPark.Data.UI
                 _catalog[data.ObjectID] = data;
 
             // ② Split into category lists
-            Paths = all.Where(d => d.Category == ParkObjectCategory.Path).ToList();
             Facility = all.Where(d => d.Category == ParkObjectCategory.Facility).ToList();
             Natural = all.Where(d => d.Category == ParkObjectCategory.Natural).ToList();
             Attractions = all.Where(d => d.Category == ParkObjectCategory.Attraction).ToList();
             Amenities = all.Where(d => d.Category == ParkObjectCategory.Amenity).ToList();
-            Waterways = all.Where(d => d.Category == ParkObjectCategory.Waterway).ToList();
 
             IsLoaded = true;
             Debug.Log($"PlaceableCatalog loaded {all.Count} items from labels: {string.Join(", ", addressableLabels)}");
+            Debug.Log("🗂 Persistent Path: " + Application.persistentDataPath);
         }
 
         /// <summary>

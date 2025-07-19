@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectID: LampPost
   DisplayName: Lamp Post
-  Prefab: {fileID: 919132149155446097, guid: 91f2372e523c3694f8dedc5f7615a55f, type: 3}
+  finalPrefab: {fileID: 2049713689067671339, guid: be0fc8eb6e01fcf49abac59c21b7e535, type: 3}
+  previewPrefab: {fileID: 2049713689067671339, guid: be0fc8eb6e01fcf49abac59c21b7e535, type: 3}
   Category: 4
   AllowedSlopes: 00000000
   Footprint:
   - {x: 0, y: 0}
-  preset: 0
+  preset: 1
   IsPermanent: 0
   RequiresValidTerrain: 0
   ParkTypeOverrides: []
@@ -32,4 +33,6 @@ MonoBehaviour:
   RatingPenalty: 0
   BaseRatingImpact: 0.15
   VisitorAttraction: []
-  NeedFulfillment: []
+  NeedFulfillment:
+  - type: 4
+    value: 0.5

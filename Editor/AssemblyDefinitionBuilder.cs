@@ -15,6 +15,7 @@ public class AssemblyDefinitionBuilder : EditorWindow
         var definitions = new List<AssemblyDef>
         {
             new AssemblyDef("PlexiPark.Data", "Assets/Data", false),
+            new AssemblyDef("PlexiPark.Terrain", "Assets/Terrain", false, new[] { "PlexiPark.Data","PlexiPark.Systems" }),
             new AssemblyDef("PlexiPark.Managers", "Assets/Managers", false, new[] { "PlexiPark.Data" }),
             new AssemblyDef("PlexiPark.Systems", "Assets/Systems", false, new[] { "PlexiPark.Data" }),
             new AssemblyDef("PlexiPark.UI", "Assets/UI", false, new[] { "PlexiPark.Data" }),

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: SmallCafe
+  m_EditorClassIdentifier: 
+  ObjectID: SmallCafe
+  DisplayName: Small Cafe
+  finalPrefab: {fileID: 2294037756134418648, guid: bffc23058a6d0e448869b657ab59ef7c, type: 3}
+  previewPrefab: {fileID: 2294037756134418648, guid: bffc23058a6d0e448869b657ab59ef7c, type: 3}
+  Category: 0
+  AllowedSlopes: 00000000
+  Footprint:
+  - {x: 0, y: 0}
+  preset: 0
+  IsPermanent: 0
+  RequiresValidTerrain: 0
+  ParkTypeOverrides: []
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 350
+  MaintenanceCostPerMonth: 18
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0.35
+  VisitorAttraction:
+  - type: 5
+    value: -1
+  - type: 0
+    value: -1
+  - type: 3
+    value: -0.558
+  - type: 1
+    value: 0.634
+  - type: 2
+    value: 0.218
+  NeedFulfillment:
+  - type: 0
+    value: 0.612

@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using PlexiPark.Data;
+using PlexiPark.Core.SharedEnums;
 
 public class SampleEditModeTest_EncryptedHabits
 {

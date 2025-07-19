@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectID: Bench
   DisplayName: Bench
-  Prefab: {fileID: 5844837558535426659, guid: 3912c75fbcbac2848a617409a64ba568, type: 3}
+  finalPrefab: {fileID: 5844837558535426659, guid: 3912c75fbcbac2848a617409a64ba568, type: 3}
+  previewPrefab: {fileID: 5844837558535426659, guid: 3912c75fbcbac2848a617409a64ba568, type: 3}
   Category: 4
   AllowedSlopes: 00000000
   Footprint:
   - {x: 0, y: 0}
-  preset: 0
+  preset: 1
   IsPermanent: 0
   RequiresValidTerrain: 0
   ParkTypeOverrides: []
@@ -31,5 +32,11 @@ MonoBehaviour:
   ProfitPerMonth: 0
   RatingPenalty: 0
   BaseRatingImpact: 0.05
-  VisitorAttraction: []
-  NeedFulfillment: []
+  VisitorAttraction:
+  - type: 0
+    value: 0.5
+  - type: 1
+    value: 0.5
+  NeedFulfillment:
+  - type: 2
+    value: 0.5

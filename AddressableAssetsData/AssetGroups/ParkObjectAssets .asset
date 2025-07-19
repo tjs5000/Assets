@@ -15,56 +15,80 @@ MonoBehaviour:
   m_GroupName: 'ParkObjectAssets '
   m_GUID: a3ed1184296fbe742adf85414c8b02cf
   m_SerializeEntries:
-  - m_GUID: 02acfb073f8dff64faca0283f55f8a8a
-    m_Address: Assets/Data/ParkObjects/Path/BikeTrail.asset
+  - m_GUID: 2205bc42d53f9374b884988e31cb7e2d
+    m_Address: Assets/Data/ParkObjects/Natural/Boulder.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Path
+    - Natural
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 036ba1636e3c9b8409cb05396dda32ed
-    m_Address: Assets/Data/ParkObjects/Waterway/WaterFeature.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Waterway
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 103e083d1a55a1f4cba6993834e4598b
-    m_Address: Assets/Data/ParkObjects/Facility/SportsField.asset
+  - m_GUID: 2ac889a8408aaac478fead3ac6d57b19
+    m_Address: Assets/Data/ParkObjects/Facility/BasketballCourt.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Facility
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 336cebda0f71d204e9da855a16915b99
-    m_Address: Assets/Data/ParkObjects/Waterway/Waterway.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Waterway
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 368790757e6fddd47bb920433392fdb2
-    m_Address: Assets/Data/ParkObjects/Facility/Cafe.asset
+  - m_GUID: 2e0709cff9d7cbe48b2d029199c49fff
+    m_Address: Assets/Data/ParkObjects/Facility/PowerSubstation.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Facility
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 430b3ca4392ee914db9014a400a254b3
-    m_Address: Assets/Data/ParkObjects/Facility/PerformanceStage.asset
+  - m_GUID: 41719c477845ddc4780d7e1e016caf24
+    m_Address: Assets/Data/ParkObjects/Facility/LargeCafe.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Facility
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6a31b7f00c8b80c4c9387a1a881d0058
-    m_Address: Assets/Data/ParkObjects/Attraction/PublicArt.asset
+  - m_GUID: 570a6db9a97f83e46b7cba0752e02862
+    m_Address: Assets/Data/ParkObjects/Natural/OakTree.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58ca8feced867004e99ba60dbc6e3beb
+    m_Address: Assets/Data/ParkObjects/Natural/Tree.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60485f24aecda2f41bb523b0f5b3475d
+    m_Address: Assets/Data/ParkObjects/Natural/FlowerBed.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67407d0e0caacd44da04ce6721e63661
+    m_Address: Assets/Data/ParkObjects/Facility/PoliceStation.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67a7cd900b1210146b5325ecbfe769d7
+    m_Address: Assets/Data/ParkObjects/Attraction/PublicArt1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Attraction
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6badf1eb11b38314aab01cad60b6d4dd
-    m_Address: Assets/Data/ParkObjects/Path/MountainTrail.asset
+  - m_GUID: 8645e194677a3bc4c80f386befc73fb5
+    m_Address: Assets/Data/ParkObjects/Facility/Billboard.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Path
+    - Facility
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8705ce864ef63e541bbbe9f9fd6c62a1
-    m_Address: Assets/Data/ParkObjects/Facility/Campsite.asset
+  - m_GUID: 9ee3ea05a31cd064a97b36da0fdbe57d
+    m_Address: Assets/Data/ParkObjects/Natural/RockPile.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f466971a1850824ebbe4b3560f1d94c
+    m_Address: Assets/Data/ParkObjects/Natural/Pond.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a84cfc4171eae53408fe332b623eadca
+    m_Address: Assets/Data/ParkObjects/Facility/SmallCafe.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Facility
@@ -75,35 +99,53 @@ MonoBehaviour:
     m_SerializedLabels:
     - Facility
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aed203c3db77d0e4aa74229fdf0447ef
-    m_Address: Assets/Data/ParkObjects/Facility/ResearchOutpost.asset
+  - m_GUID: b514269f46f22e749af8a2ac3dbd9cb3
+    m_Address: Assets/Data/ParkObjects/Attraction/PublicArt 3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Attraction
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b67449e0d69758047865ac4e09876eb7
+    m_Address: Assets/Data/ParkObjects/Facility/FireStation.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Facility
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b29a535011c6ee14499bf22afe33cb63
-    m_Address: Assets/Data/ParkObjects/Path/ServiceRoad.asset
+  - m_GUID: b7d9a81a4bb32674ca6971693a5bad89
+    m_Address: Assets/Data/ParkObjects/Amenity/Trashcan.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Path
+    - Amenity
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b5be566f2ecff2d4e92ad466fc2c6d22
-    m_Address: Assets/Data/ParkObjects/Path/HikingTrail.asset
+  - m_GUID: b9ed438b64f1f0b458edd3eb1ba3a182
+    m_Address: Assets/Data/ParkObjects/Attraction/Fountain.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Path
+    - Attraction
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bd64235a042f4e143b5c97089601d771
-    m_Address: Assets/Data/ParkObjects/Facility/LookoutTower.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Facility
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cb3133cdf61025145a27e0ecf7990fcf
-    m_Address: Assets/Data/ParkObjects/Natural/NaturalMarvel.asset
+  - m_GUID: bca8bdea8a18f9b4e81d93e63feb577a
+    m_Address: Assets/Data/ParkObjects/Natural/PineTree.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf20ac2e45b387a48bf0259b570bb121
+    m_Address: Assets/Data/ParkObjects/Natural/Bush.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0f54fdbffd27af44b84534c8151860d
+    m_Address: Assets/Data/ParkObjects/Attraction/PublicArt2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Attraction
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d83bc589be3f7374790bfea4c4198d4c
+    m_Address: Assets/Data/ParkObjects/Facility/Supermarket.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Facility
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd569a51362e153478f7c355cad931e8
     m_Address: Assets/Data/ParkObjects/Facility/VisitorCenter.asset
@@ -117,29 +159,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Facility
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e0109071c921812438f0e3d6df77e2c6
-    m_Address: Assets/Data/ParkObjects/Path/WalkingPath.asset
+  - m_GUID: ecf4e21dda2a82d45b8476c3553c5c49
+    m_Address: Assets/Data/ParkObjects/Facility/Shop.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Path
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ea152e2bee3f751429ad15a259e2a1be
-    m_Address: Assets/Data/ParkObjects/Natural/Rocks.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Natural
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ebc3e706a51d3ce47b5b48a5cda46e60
-    m_Address: Assets/Data/ParkObjects/Attraction/NaturalMarvel.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Attraction
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ed07ab0b94e319b42a566b6970eaa785
-    m_Address: Assets/Data/ParkObjects/Natural/Trees.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Natural
+    - Facility
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f37894d46ecc117459818fcb1ebd52eb
     m_Address: Assets/Data/ParkObjects/Amenity/Bench.asset
@@ -147,11 +171,23 @@ MonoBehaviour:
     m_SerializedLabels:
     - Amenity
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8006d7471e85f5469a498ac97cc28e3
+    m_Address: Assets/Data/ParkObjects/Natural/PlanterBox.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe0c10c680f28ee46b5c839a59092b77
     m_Address: Assets/Data/ParkObjects/Amenity/LampPost.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Amenity
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: feaec1b32b55237488186ccb976845cf
+    m_Address: Assets/Data/ParkObjects/Natural/Shrub.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Natural
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a56edd9bf2f1ce042be8f427452f65a8, type: 2}

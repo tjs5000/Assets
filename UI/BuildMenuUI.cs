@@ -1,4 +1,4 @@
-// UI/BuildMenuUI.cs
+//  Assets/UI/BuildMenuUI.cs
 using System.Linq;
 using System.Collections;
 using UnityEngine;
@@ -50,11 +50,20 @@ namespace PlexiPark.UI
                 var localObj = obj; // capture for listener
                 btn.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    if (placementUIController == null)
-     Debug.LogError("❌ placementUIController reference is missing on BuildMenuUI!");
- else
-     placementUIController.BeginPlacement(localObj);
+                    if (localObj.previewPrefab == null)
+                    {
+                        Debug.LogError($"❌ {localObj.DisplayName} is missing its Preview Prefab (ghost).");
+                        return;
+                    }
+                    if (localObj.finalPrefab == null)
+                    {
+                        Debug.LogError($"❌ {localObj.DisplayName} is missing its Final Prefab.");
+                        return;
+                    }
+
+                    placementUIController.BeginPlacement(localObj);
                 });
+
             }
         }
     }

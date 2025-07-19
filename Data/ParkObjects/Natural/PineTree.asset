@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: PineTree
+  m_EditorClassIdentifier: 
+  ObjectID: PineTree
+  DisplayName: Pine Tree
+  finalPrefab: {fileID: 3878337606558365973, guid: fa1de26d6fa51bf4f87da80daae120f7, type: 3}
+  previewPrefab: {fileID: 3878337606558365973, guid: fa1de26d6fa51bf4f87da80daae120f7, type: 3}
+  Category: 2
+  AllowedSlopes: 00000000
+  Footprint:
+  - {x: 0, y: 0}
+  preset: 0
+  IsPermanent: 0
+  RequiresValidTerrain: 0
+  ParkTypeOverrides: []
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 300
+  MaintenanceCostPerMonth: 12
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0.3
+  VisitorAttraction: []
+  NeedFulfillment: []

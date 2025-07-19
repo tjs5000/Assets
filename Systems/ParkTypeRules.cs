@@ -1,6 +1,7 @@
 // Systems/ParkTypeRules.cs
 using UnityEngine;
 using PlexiPark.Data;
+using PlexiPark.Core.SharedEnums;
 
 namespace PlexiPark.Systems
 {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using PlexiPark.Data;
+using PlexiPark.Core.SharedEnums;
 
 [CreateAssetMenu(fileName = "ZoomProfile", menuName = "PlexiPark/Zoom Profile")]
 public class ZoomProfile : ScriptableObject

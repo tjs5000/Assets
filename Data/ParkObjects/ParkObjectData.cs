@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using PlexiPark.Data;
+using PlexiPark.Core.SharedEnums;
 
 namespace PlexiPark.Data
 {
@@ -21,7 +21,9 @@ namespace PlexiPark.Data
         public string DisplayName;
 
         [Tooltip("Prefab to instantiate for ghost and final placement.")]
-        public GameObject Prefab;
+        // public GameObject Prefab;
+        public GameObject finalPrefab;
+        public GameObject previewPrefab;
 
         // ----------------------------------------------------------------------
         // Categorization
@@ -30,8 +32,6 @@ namespace PlexiPark.Data
 
         [Header("Classification")]
         public ParkObjectCategory Category;
-
-
 
 
         // ----------------------------------------------------------------------
@@ -269,14 +269,14 @@ namespace PlexiPark.Data
     }
 
     public enum ParkObjectCategory
-        {
-            Facility,
-            Path,
-            Natural,
-            Attraction,
-            Amenity,     // next-to-path objects like benches, trash cans, lamp posts
-            Waterway
-        }
+    {
+        Facility,
+        Path,
+        Natural,
+        Attraction,
+        Amenity,     // next-to-path objects like benches, trash cans, lamp posts
+        Waterway
+    }
 
     [System.Serializable]
     public class VisitorAttractionEntry

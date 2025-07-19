@@ -2,10 +2,16 @@
     "name": "PlexiPark.Systems",
     "rootNamespace": "",
     "references": [
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "Unity.AI.Navigation",
+        "LeanTouch",
+        "LeanCommon",
+        "PlexiPark.Core",
         "PlexiPark.Managers",
-        "PlexiPark.Data.SaveLoad",
         "PlexiPark.Data",
-        "Unity.TextMeshPro"
+        "PlexiPark.Data.SaveLoad",
+        "PlexiPark.Terrain"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

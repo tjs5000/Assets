@@ -2,7 +2,9 @@ using System.IO;
 using NUnit.Framework;
 using UnityEngine;
 using PlexiPark.Managers;
-using PlexiPark.Data;    
+using PlexiPark.Data;
+using PlexiPark.Core.SharedEnums; 
+
 
 public class PlayerDataManagerTests
 {

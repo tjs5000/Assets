@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: a3ed1184296fbe742adf85414c8b02cf
   m_currentHash:
     serializedVersion: 2
-    Hash: 9c0d891d34cc11effab5c4db759b8b53
+    Hash: 1603fa92de40d21e315c254935394f9e
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -100,10 +100,8 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-    - Path
     - Natural
     - Facility
-    - Waterway
     - Attraction
     - Amenity
   m_SchemaTemplates: []

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: PublicArt1
+  m_EditorClassIdentifier: 
+  ObjectID: PublicArt1
+  DisplayName: Public Art 1
+  finalPrefab: {fileID: 5762825319558450313, guid: e1aefe04412fa134387510ddc7f36ba1, type: 3}
+  previewPrefab: {fileID: 5762825319558450313, guid: e1aefe04412fa134387510ddc7f36ba1, type: 3}
+  Category: 3
+  AllowedSlopes: 00000000
+  Footprint:
+  - {x: 0, y: 0}
+  preset: 0
+  IsPermanent: 0
+  RequiresValidTerrain: 0
+  ParkTypeOverrides: []
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 200
+  MaintenanceCostPerMonth: 8
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0.2
+  VisitorAttraction:
+  - type: 5
+    value: -0.688
+  - type: 6
+    value: 0.646
+  NeedFulfillment:
+  - type: 5
+    value: 0.599

@@ -1,10 +1,12 @@
+//Assets/Data/SaveLoad/EncryptedHabitStorage.cs
+
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 using System.Collections.Generic;
-using PlexiPark.Data;
+using PlexiPark.Core.SharedEnums;
 
 public static class EncryptedHabitStorage
 {

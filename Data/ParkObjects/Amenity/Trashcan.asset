@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d85a23484293b44be3eaa880905b8b, type: 3}
+  m_Name: Trashcan
+  m_EditorClassIdentifier: 
+  ObjectID: Trashcan
+  DisplayName: Trashcan
+  finalPrefab: {fileID: 2841116094925950633, guid: ea1a7c83d80b24f438479618c8bef82d, type: 3}
+  previewPrefab: {fileID: 2841116094925950633, guid: ea1a7c83d80b24f438479618c8bef82d, type: 3}
+  Category: 4
+  AllowedSlopes: 00000000
+  Footprint:
+  - {x: 0, y: 0}
+  preset: 1
+  IsPermanent: 0
+  RequiresValidTerrain: 0
+  ParkTypeOverrides: []
+  MaxUpgradeTier: 1
+  TierNames: []
+  MaintenancePerTier: 
+  Cost: 50
+  MaintenanceCostPerMonth: 2
+  ProfitPerMonth: 0
+  RatingPenalty: 0
+  BaseRatingImpact: 0.05
+  VisitorAttraction: []
+  NeedFulfillment:
+  - type: 5
+    value: 0.5

@@ -12,15 +12,13 @@ namespace PlexiPark.Data
     [Serializable]
     public struct CameraState
     {
-        public Vector3 position;
-        public Quaternion rotation;
-        public float   zoomDistance; 
+        // Previously you had position, rotation, zoomLevel.
+        // Now we only care about the look-at pivot:
+        public Vector3 pivot;
 
-        public CameraState(Vector3 pos, Quaternion rot, float zoomDist)
+        public CameraState(Vector3 pivot)
         {
-            position = pos;
-            rotation = rot;
-            zoomDistance = zoomDist;
+            this.pivot = pivot;
         }
     }
 }

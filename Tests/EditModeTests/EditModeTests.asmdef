@@ -7,7 +7,9 @@
         "PlexiPark.Data",
         "PlexiPark.Managers",
         "PlexiPark.Data.UI",
-        "PlexiPark.Data.SaveLoad"
+        "PlexiPark.Data.SaveLoad",
+        "PlexiPark.Core",
+        "PlexiPark.Core.Interfaces"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

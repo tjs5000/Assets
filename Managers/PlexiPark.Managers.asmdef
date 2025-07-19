@@ -2,9 +2,14 @@
     "name": "PlexiPark.Managers",
     "rootNamespace": "",
     "references": [
+        "LeanTouch",
+        "LeanCommon",
+        "PlexiPark.Terrain",
         "PlexiPark.Data",
         "PlexiPark.Data.SaveLoad",
-        "PlexiPark.Data.UI"
+        "PlexiPark.Data.UI",
+        "PlexiPark.Core",
+        "PlexiPark.Core.Interfaces"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

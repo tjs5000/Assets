@@ -1,0 +1,22 @@
+{
+    "name": "PlexiPark.AI",
+    "rootNamespace": "",
+    "references": [
+        "PlexiPark.Core",
+        "PlexiPark.Core.Interfaces",
+        "PlexiPark.Data",
+        "PlexiPark.Systems",
+        "PlexiPark.Terrain",
+        "Unity.AI.Navigation",
+        "PlexiPark.Managers"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

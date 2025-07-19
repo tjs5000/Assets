@@ -2,12 +2,17 @@
     "name": "PlexiPark.UI",
     "rootNamespace": "",
     "references": [
-        "PlexiPark.Data",
-        "PlexiPark.Data.UI",
-        "PlexiPark.Managers",
-        "PlexiPark.Systems",
         "Unity.TextMeshPro",
-        "PlexiPark.Data.SaveLoad"
+        "LeanTouch",
+        "LeanCommon",
+        "PlexiPark.Systems",
+        "PlexiPark.Data.UI",
+        "PlexiPark.Data.SaveLoad",
+        "PlexiPark.Core",
+        "PlexiPark.Core.Interfaces",
+        "PlexiPark.Data",
+        "PlexiPark.AI",
+        "PlexiPark.Terrain"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

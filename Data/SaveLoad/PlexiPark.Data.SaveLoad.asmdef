@@ -2,7 +2,8 @@
     "name": "PlexiPark.Data.SaveLoad",
     "rootNamespace": "",
     "references": [
-        "PlexiPark.Data"
+        "PlexiPark.Core.Interfaces",
+        "PlexiPark.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -14,12 +14,12 @@ public class ChatGPTExportTool : EditorWindow
         "Assets/Systems",
         "Assets/Data",
         "Assets/UI",
+        "Assets/AI",
         "Assets/Scenes",
-        "Assets/Scenes",
+        "Assets/Terrain",
         "Assets/Core",
         "Assets/Tests",
-        "Assets/Editor",
-        "Assets/Plugins" // Optional: include if validation tools are stored here
+        "Assets/Editor"
     };
 
     private string exportFolderName = "ChatGPTExports";
